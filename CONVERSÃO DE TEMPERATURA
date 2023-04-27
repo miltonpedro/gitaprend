@@ -1,0 +1,65 @@
+package main
+
+import (
+	"fmt"
+	"strconv"
+)
+
+func main() {
+	var temp, tempConv float64
+	var escOrigem, escDestino string
+
+	fmt.Println("Digite a temperatura:")
+	fmt.Scanln(&temp)
+
+	fmt.Println("Digite a escala de origem (C, F ou K):")
+	fmt.Scanln(&escOrigem)
+
+	fmt.Println("Digite a escala de destino (C, F ou K):")
+	fmt.Scanln(&escDestino)
+
+	// Conversão da temperatura
+	switch escOrigem {
+	case "C":
+		switch escDestino {
+		case "C":
+			tempConv = temp
+		case "F":
+			tempConv = temp*9/5 + 32
+		case "K":
+			tempConv = temp + 273.15
+		default:
+			fmt.Println("Escala de destino inválida")
+			return
+		}
+	case "F":
+		switch escDestino {
+		case "C":
+			tempConv = (temp - 32) * 5 / 9
+		case "F":
+			tempConv = temp
+		case "K":
+			tempConv = (temp-32)*5/9 + 273.15
+		default:
+			fmt.Println("Escala de destino inválida")
+			return
+		}
+	case "K":
+		switch escDestino {
+		case "C":
+			tempConv = temp - 273.15
+		case "F":
+			tempConv = (temp-273.15)*9/5 + 32
+		case "K":
+			tempConv = temp
+		default:
+			fmt.Println("Escala de destino inválida")
+			return
+		}
+	default:
+		fmt.Println("Escala de origem inválida")
+		return
+	}
+
+	fmt.Println("Temperatura convertida:", strconv.FormatFloat(tempConv, 'f', 2, 64), escDestino)
+}
